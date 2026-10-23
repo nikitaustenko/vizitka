@@ -5,14 +5,22 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="theme-color" content="#F7F1EB">
   <meta name="format-detection" content="telephone=no">
-  <meta name="description" content="Lady Dance с Анастасией — группа с нуля в студии танца «Твой мир». Запишитесь на занятие.">
-  <title>LADY DANCE — Анастасия</title>
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <!-- Manrope и Playfair Display содержат кириллицу, поэтому текст выглядит одинаково на всех устройствах -->
-  <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400..700&family=Playfair+Display:ital,wght@1,400;1,500&display=swap" rel="stylesheet">
+  <meta name="description" content="Lady Dance с Анастасией — группа для девушек с нуля. Ср и Пт в 21:00, студия танца «Твой мир». Записывайся на первое занятие!">
+  <title>Lady Dance — группа с нуля</title>
+  <link rel="icon" href="favicon.svg" type="image/svg+xml">
+  <link rel="icon" href="favicon-32.png" type="image/png" sizes="32x32">
+  <link rel="apple-touch-icon" href="apple-touch-icon.png">
+  <link rel="preload" as="image" href="img/hero.webp" fetchpriority="high">
+  <!-- Шрифты лежат рядом с сайтом (папка fonts) и грузятся сразу, без Google -->
+  <link rel="preload" as="font" type="font/woff" href="fonts/manrope.woff" crossorigin>
+  <link rel="preload" as="font" type="font/woff" href="fonts/playfair-italic.woff" crossorigin>
   <script>document.documentElement.classList.add("js");</script>
   <style>
+    /* Manrope — переменный шрифт, один файл закрывает все толщины 400–700.
+       Playfair Display — только курсив 400 (так он используется во всех заголовках). */
+    @font-face { font-family: "Manrope"; src: url("fonts/manrope.woff") format("woff"); font-weight: 400 700; font-style: normal; font-display: swap; }
+    @font-face { font-family: "Playfair Display"; src: url("fonts/playfair-italic.woff") format("woff"); font-weight: 400 500; font-style: italic; font-display: swap; }
+
     /* ============================================================
        Как это работает:
        1) Вся страница — одна мобильная колонка шириной 24.375rem (= 390px).
@@ -30,7 +38,7 @@
       --serif: "Playfair Display", Georgia, "Times New Roman", serif;
       --sans: "Manrope", system-ui, -apple-system, "Segoe UI", Roboto, Arial, sans-serif;
       --gutter: 1.25rem;
-      --feet: .8rem;
+      --feet: 4%; /* в % от ширины страницы: ножки стула на 3% выше низа фото, так блок всегда встает ровно под них */
     }
 
     *, *::before, *::after { box-sizing: border-box; }
@@ -64,33 +72,36 @@
     a { color: inherit; text-decoration: none; }
     button { margin: 0; font: inherit; color: inherit; }
     a, button { -webkit-tap-highlight-color: transparent; }
-    p { hyphens: auto; -webkit-hyphens: auto; }
+    /* Без автопереносов: в узких колонках они рвали слова («спой-лер», «чув-ствует») */
+    p { hyphens: manual; -webkit-hyphens: manual; }
 
     .wrap { width: 100%; padding-inline: var(--gutter); }
 
     /* ---------- Шапка ---------- */
     .topbar { background: var(--paper); }
-    .topbar .wrap { display: flex; align-items: center; padding-block: .75rem; }
-    .brand { display: flex; align-items: center; gap: .75rem; min-width: 0; font-size: .75rem; font-weight: 700; letter-spacing: .12em; text-transform: uppercase; }
+    .topbar .wrap { display: flex; align-items: center; justify-content: space-between; gap: .75rem; padding-block: .75rem; }
+    .brand { display: flex; align-items: center; gap: .625rem; min-width: 0; font-size: .8125rem; font-weight: 700; letter-spacing: .06em; text-transform: uppercase; white-space: nowrap; }
     .brand-mark { flex: 0 0 2.125rem; display: grid; place-items: center; width: 2.125rem; height: 2.125rem; border-radius: 50%; background: var(--ink); color: var(--paper); font: italic 400 .9375rem/1 var(--serif); letter-spacing: 0; }
 
     /* ---------- Первый экран ---------- */
-    .hero { position: relative; padding-top: .25rem; background: var(--paper); }
-    .hero-copy { display: grid; justify-items: start; gap: .75rem; }
+    .hero { position: relative; padding-top: 0; background: var(--paper); }
+    .hero-copy { display: grid; justify-items: start; gap: .75rem; margin-top: -.25rem; }
     .eyebrow { color: var(--muted); font-family: var(--serif); font-size: 1.5rem; font-style: italic; line-height: 1.2; }
     h1 { margin: .125rem 0 0 -.1875rem; font-family: var(--serif); font-size: 3.5rem; font-style: italic; font-weight: 500; line-height: 1; letter-spacing: -.04em; }
     .lead { max-width: 32rem; font-size: 1rem; line-height: 1.4; }
-    .cta { position: relative; overflow: hidden; display: inline-flex; align-items: center; justify-content: center; min-height: 3rem; max-width: 100%; padding: 0 1.375rem; border: 0; border-radius: 999px; background: var(--taupe); color: var(--ink); font-size: .875rem; font-weight: 700; text-align: center; cursor: pointer; transition: transform .2s, background .2s; }
+    .cta { position: relative; z-index: 4; overflow: hidden; display: inline-flex; align-items: center; justify-content: center; min-height: 3rem; max-width: 100%; padding: 0 1.375rem; border: 0; border-radius: 999px; background: var(--taupe); color: var(--ink); font-size: .9375rem; font-weight: 700; text-align: center; cursor: pointer; transition: transform .2s, background .2s; }
     .cta::after { content: ""; position: absolute; top: 0; bottom: 0; left: 0; width: 35%; background: rgba(255,255,255,.14); transform: translateX(-160%) skewX(-18deg); transition: transform .55s ease; }
     .cta span { display: inline-block; transition: transform .25s; }
     .cta:active { transform: scale(.97); }
+    .hero-meta { margin-top: -.125rem; color: var(--muted); font-size: .8125rem; font-weight: 700; }
 
     /* Фото занимает всю ширину колонки и сохраняет пропорции — не обрезается и не вылезает */
-    /* Как двигать (всё в rem, масштабируется вместе со страницей):
-       -5.2rem  — высота модели: больше минус — модель выше.
-       --feet   — на сколько бордовый блок поднимается к ножкам стула (текст внутри блока остаётся на месте):
+    /* Как двигать:
+       -5.7rem  — высота модели: больше минус — модель выше (сейчас ботинок почти касается текста).
+       --feet   — на сколько бордовый блок поднимается к ножкам стула, в % (текст внутри блока остается на месте):
                   больше число — блок выше, меньше — ниже. Меняется в :root в самом верху. */
-    .hero-visual { position: relative; z-index: 3; margin: -5.8rem calc(var(--gutter) * -1) 0; }
+    /* pointer-events: none — фото заходит на кнопку сверху и раньше перехватывало нажатие, из-за этого кнопка не работала */
+    .hero-visual { position: relative; z-index: 3; margin: -5.7rem calc(var(--gutter) * -1) 0; pointer-events: none; }
     .model-photo { width: 100%; height: auto; pointer-events: none; filter: drop-shadow(0 1.375rem 1.125rem rgba(37, 23, 17, .2)); }
 
     /* ---------- Общие заголовки ---------- */
@@ -98,17 +109,63 @@
     h2 { margin-top: .5rem; font-family: var(--serif); font-size: 2.1rem; font-style: italic; font-weight: 500; line-height: 1.05; letter-spacing: -.03em; }
     .serif-note { font-family: var(--serif); font-size: 1rem; font-style: italic; line-height: 1.3; }
 
-    /* ---------- «Про тебя» ---------- */
+    /* ---------- «Почему Lady Dance» ---------- */
     .about { position: relative; z-index: 1; margin-top: calc(var(--feet) * -1); padding: 1.75rem 0 2.8rem; background: var(--ink); color: var(--paper); }
     .about .section-kicker, .about .serif-note { color: var(--taupe); }
     .section-heading { display: flex; flex-direction: column; align-items: flex-start; gap: .625rem; margin-bottom: 1.375rem; padding-top: .5rem; }
 
     .benefits { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: .5rem; }
-    .benefit { min-width: 0; min-height: 10rem; padding: 1rem .875rem; border-radius: 1rem; background: var(--paper); color: var(--ink); }
-    .benefit:nth-child(even) { background: var(--taupe); }
-    .benefit-num { display: block; margin-bottom: .625rem; font-family: var(--serif); font-size: 1.75rem; font-style: italic; line-height: 1; }
+    .benefit { min-width: 0; min-height: 10rem; padding: .875rem .875rem 1rem; border-radius: 1rem; background: var(--paper); color: var(--ink); }
+    /* Розовые — 1-я и 4-я карточки, молочные — 2-я и 3-я (шахматный порядок) */
+    .benefit:nth-child(1), .benefit:nth-child(4) { background: var(--taupe); }
+    /* У цифр Playfair над глифом пустое место — отрицательный отступ выравнивает поля сверху и снизу */
+    .benefit-num { display: block; margin: -.5rem 0 .625rem; font-family: var(--serif); font-size: 1.75rem; font-style: italic; line-height: 1; }
     .benefit h3 { margin-bottom: .4375rem; font-size: .9rem; line-height: 1.25; }
     .benefit p { font-size: .8125rem; line-height: 1.45; }
+
+    /* Как проходит занятие */
+
+    /* ---------- О тренере ---------- */
+    .coach { position: relative; overflow: hidden; padding: 1.25rem 0 3.5rem; background: var(--paper); }
+    /* Видимые отступы (от края блока до «Твой тренер», между тремя строками) — по 24px; цифры учитывают пустоту внутри строк шрифтов */
+    .coach-heading { display: grid; margin-bottom: 1.5rem; }
+    .coach-heading h2 { margin-top: .3125rem; font-size: 3rem; line-height: 1; }
+    .coach-heading .serif-note { margin-top: .875rem; color: var(--muted); font-size: 1.125rem; }
+    .sparkle { display: inline-block; margin-right: .375rem; color: var(--taupe); font-style: normal; }
+
+    /* Фото-арка: как зеркало в танцевальном зале */
+    .coach-photo { position: relative; margin: 0 .75rem 2rem; }
+    .coach-photo::before { content: ""; position: absolute; inset: -.625rem; border: 1px solid rgba(62, 25, 33, .25); border-radius: 12rem 12rem 1.5rem 1.5rem; pointer-events: none; }
+    .coach-photo img { width: 100%; aspect-ratio: 4 / 5; object-fit: cover; object-position: 50% 30%; border-radius: 11.4rem 11.4rem 1rem 1rem; box-shadow: 0 1.5rem 2.5rem -1.5rem rgba(62, 25, 33, .5); }
+    .coach-badge { position: absolute; left: -1.25rem; bottom: 2.5rem; display: grid; place-items: center; align-content: center; width: 6.25rem; height: 6.25rem; border-radius: 50%; background: var(--ink); color: var(--paper); text-align: center; transform: rotate(-8deg); box-shadow: 0 .75rem 1.5rem -.5rem rgba(62, 25, 33, .5); }
+    .coach-badge b { position: relative; top: -.1875rem; font-family: var(--serif); font-size: 2.3125rem; font-style: italic; font-weight: 500; line-height: .9; }
+    .coach-badge span { margin-top: .25rem; color: var(--taupe); font-size: .625rem; font-weight: 700; letter-spacing: .1em; line-height: 1.25; text-transform: uppercase; }
+    .coach-tag { position: absolute; right: -.5rem; top: 38%; padding: .5rem .875rem; border-radius: 999px; background: var(--taupe); color: var(--ink); font-size: .75rem; font-weight: 700; transform: rotate(6deg); box-shadow: 0 .5rem 1rem -.5rem rgba(62, 25, 33, .4); }
+
+    .coach-quote { position: relative; margin: 0 0 1.75rem; padding-left: 1.5rem; font-family: var(--serif); font-size: 1.375rem; font-style: italic; line-height: 1.3; }
+    .coach-quote::before { content: "“"; position: absolute; left: -.25rem; top: -.75rem; color: var(--taupe); font-size: 3.5rem; line-height: 1; }
+
+    .coach-facts { display: grid; gap: .625rem; margin: 0 0 2.25rem; padding: 0; list-style: none; }
+    .coach-fact { padding: 1.25rem 1.25rem 1.375rem; border-radius: 1rem; background: var(--sand); }
+    .coach-fact:nth-child(2) { background: var(--ink); color: var(--paper); }
+    .coach-fact:nth-child(2) .coach-big { color: var(--taupe); }
+    .coach-fact:nth-child(2) p { color: rgba(247, 241, 235, .8); }
+    .coach-big { display: block; margin-bottom: .5rem; font-family: var(--serif); font-size: 2rem; font-style: italic; font-weight: 500; line-height: 1; letter-spacing: -.02em; }
+    .coach-fact h3 { margin: 0 0 .375rem; color: inherit; font-size: .75rem; letter-spacing: .14em; text-transform: uppercase; opacity: .75; line-height: 1.35; }
+    .coach-fact p { color: #5A4448; font-size: .875rem; line-height: 1.5; }
+
+    /* Лента фото со сцены — листается пальцем */
+    .gallery-head { display: flex; align-items: baseline; justify-content: space-between; margin-bottom: .875rem; }
+    .gallery-title { font-family: var(--serif); font-size: 1.375rem; font-style: italic; }
+    .gallery-hint { color: var(--muted); font-size: .75rem; font-weight: 700; letter-spacing: .12em; text-transform: uppercase; }
+    .gallery { display: flex; gap: .75rem; overflow-x: auto; padding: 0 var(--gutter) .5rem; scroll-snap-type: x mandatory; scroll-padding-inline: var(--gutter); -webkit-overflow-scrolling: touch; scrollbar-width: none; }
+    .gallery::-webkit-scrollbar { display: none; }
+    .gallery figure { flex: 0 0 14.5rem; margin: 0; scroll-snap-align: start; }
+    .gallery img { width: 100%; aspect-ratio: 4 / 5; object-fit: cover; border-radius: 1rem; }
+    .gallery figure:nth-child(even) { margin-top: 1.5rem; }
+
+    .coach-outro { margin-top: 2rem; padding: 1.375rem 1.25rem; border-radius: 1rem; background: var(--taupe); font-size: .9375rem; line-height: 1.55; }
+    .coach-outro strong { font-family: var(--serif); font-size: 1.125rem; font-style: italic; font-weight: 500; }
 
     /* ---------- Страхи ---------- */
     .fears { padding: 2.8rem 0 4.4rem; background: var(--taupe); color: var(--ink); }
@@ -118,46 +175,62 @@
     .fear-cards { display: grid; grid-template-columns: minmax(0, 1fr); gap: .75rem; }
     .fear-card { padding: 0 1.25rem; border-radius: 1rem; background: var(--paper); }
     .fear-heading { margin: 0; font-size: 1.0625rem; line-height: 1.25; }
-    .fear-trigger { display: grid; grid-template-columns: auto minmax(0, 1fr) auto; align-items: center; gap: .875rem; width: 100%; min-height: 5.75rem; padding: 1.25rem 0; border: 0; background: transparent; text-align: left; cursor: pointer; }
+    .fear-trigger { display: grid; grid-template-columns: minmax(0, 1fr) auto; align-items: center; gap: .875rem; width: 100%; min-height: 4.75rem; padding: 1.25rem 0; border: 0; background: transparent; text-align: left; cursor: pointer; }
     .fear-trigger:focus-visible { outline: 2px solid var(--ink); outline-offset: 4px; border-radius: .5rem; }
-    .fear-number { color: var(--taupe); font-family: var(--serif); font-size: 1.9375rem; font-style: italic; line-height: 1; }
     .fear-title { font-size: 1.0625rem; font-weight: 700; line-height: 1.25; }
     .fear-plus { position: relative; width: 1.4375rem; height: 1.4375rem; border: 1px solid var(--ink); border-radius: 50%; }
     .fear-plus::before, .fear-plus::after { content: ""; position: absolute; top: 50%; left: 50%; width: .625rem; height: 1px; background: var(--ink); transform: translate(-50%, -50%); transition: transform .25s ease; }
     .fear-plus::after { transform: translate(-50%, -50%) rotate(90deg); }
 
-    /* Раскрытие без жёсткой высоты: подстраивается под любой объём текста */
-    .fear-answer { display: grid; grid-template-rows: 0fr; transition: grid-template-rows .35s ease; }
-    .fear-answer-inner { min-height: 0; overflow: hidden; visibility: hidden; transition: visibility 0s .35s; }
+    /* Раскрытие без жесткой высоты: подстраивается под любой объем текста.
+       Ответы прячутся только когда работает JS — иначе они просто видны сразу. */
+    .fear-answer { display: grid; }
+    .fear-answer-inner { min-height: 0; overflow: hidden; }
+    .js .fear-answer { grid-template-rows: 0fr; transition: grid-template-rows .35s ease; }
+    .js .fear-answer-inner { visibility: hidden; transition: visibility 0s .35s; }
+    html:not(.js) .fear-plus { display: none; }
+    html:not(.js) .fear-trigger { min-height: 0; padding-bottom: .625rem; cursor: default; }
     .fear-answer p { padding-bottom: 1.375rem; color: #494541; font-size: .875rem; line-height: 1.5; }
     .fear-card.is-open .fear-answer { grid-template-rows: 1fr; }
     .fear-card.is-open .fear-answer-inner { visibility: visible; transition-delay: 0s; }
     .fear-card.is-open .fear-plus::after { transform: translate(-50%, -50%) rotate(0); }
 
     /* ---------- Расписание и адрес ---------- */
-    .facts-section { padding: 1.75rem 0 5.5rem; background: var(--paper); }
+    .facts-section { padding: 2.25rem 0; background: var(--paper); }
     .facts { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: .625rem; }
-    .fact { display: flex; flex-direction: column; align-items: flex-start; min-width: 0; min-height: 9.5rem; padding: 1.125rem; border-radius: 1rem; background: var(--sand); color: var(--ink); }
-    .fact-label { margin-bottom: 1.25rem; font-size: .6875rem; font-weight: 700; letter-spacing: .16em; text-transform: uppercase; }
+    .fact { display: flex; flex-direction: column; align-items: flex-start; min-width: 0; min-height: 8.5rem; padding: 1.125rem; border-radius: 1rem; background: var(--sand); color: var(--ink); }
+    .fact-label { margin-bottom: 1rem; color: var(--ink); opacity: .75; font-size: .6875rem; font-weight: 700; letter-spacing: .16em; text-transform: uppercase; }
     .fact-value { margin-bottom: .75rem; font-size: 1.15rem; font-weight: 700; line-height: 1.1; }
     .map-link { max-width: 100%; margin-top: auto; padding: .4375rem .75rem; border-radius: 1rem; background: var(--ink); color: var(--paper); font-size: .6875rem; font-weight: 700; line-height: 1.2; text-align: center; transition: opacity .25s; }
     .map-link:active { opacity: .65; }
 
     /* ---------- Запись ---------- */
-    .booking-section { padding: 1.75rem 0 3rem; background: var(--ink); color: var(--paper); }
+    .booking-section { padding: 3rem 0 3rem; background: var(--ink); color: var(--paper); }
     .booking { display: grid; gap: 1.5rem; }
     .booking .section-kicker { color: var(--taupe); }
-    .booking h2 { margin-bottom: .5rem; }
+    .booking-head { display: flex; align-items: center; gap: 1rem; margin-bottom: .75rem; }
+    .booking-head h2 { margin: .25rem 0 0; }
+    /* Логотип-монограмма в круге: розовый круг, тонкое внутреннее кольцо, буквы LD */
+    .booking-logo { position: relative; flex: 0 0 4.75rem; display: grid; place-items: center; width: 4.75rem; height: 4.75rem; border-radius: 50%; background: var(--taupe); color: var(--ink); }
+    .booking-logo::before { content: ""; position: absolute; inset: .3125rem; border: 1px solid rgba(62, 25, 33, .35); border-radius: 50%; }
+    .booking-logo b { font-family: var(--serif); font-size: 1.75rem; font-style: italic; font-weight: 400; line-height: 1; letter-spacing: -.04em; transform: translateX(-.0625rem); }
+    .booking-logo i { position: absolute; top: .75rem; right: 1rem; font-size: .5rem; font-style: normal; line-height: 1; }
     .booking-copy p { max-width: 32rem; font-size: .875rem; line-height: 1.6; }
     .quick-links { display: grid; gap: .75rem; }
     .quick-link { display: flex; align-items: center; justify-content: center; min-height: 3.25rem; padding: .625rem 1.125rem; border: 1px solid var(--paper); border-radius: 999px; background: transparent; color: var(--paper); font-size: .9375rem; font-weight: 700; line-height: 1.25; text-align: center; transition: transform .25s, background .25s, color .25s, border-color .25s; }
-    .quick-link:nth-child(2) { background: var(--taupe); border-color: var(--taupe); color: var(--ink); }
+    .quick-link:first-child { background: var(--taupe); border-color: var(--taupe); color: var(--ink); }
     .quick-link:active { transform: scale(.985); }
+
+    /* ---------- Плавающая кнопка записи ---------- */
+    /* Появляется, когда кнопка первого экрана ушла вверх, и прячется у блока записи */
+    .sticky-cta { position: fixed; z-index: 20; left: 50%; bottom: calc(.875rem + env(safe-area-inset-bottom)); display: flex; align-items: center; justify-content: center; gap: .5rem; width: calc(min(100vw, 24.375rem) - var(--gutter) * 2); min-height: 3.25rem; padding: 0 1.25rem; border: 1px solid rgba(229, 184, 190, .55); border-radius: 999px; background: var(--ink); color: var(--paper); font-size: .9375rem; font-weight: 700; box-shadow: 0 .75rem 1.75rem -.5rem rgba(37, 23, 17, .45); opacity: 0; visibility: hidden; transform: translate(-50%, 1.5rem); transition: opacity .3s ease, transform .3s ease, visibility 0s .3s; }
+    .sticky-cta.is-shown { opacity: 1; visibility: visible; transform: translate(-50%, 0); transition-delay: 0s; }
+    .sticky-cta:active { transform: translate(-50%, 0) scale(.97); }
+    .sticky-cta span { color: var(--taupe); }
 
     /* ---------- Подвал ---------- */
     footer { padding: 1.75rem 0 calc(2.2rem + env(safe-area-inset-bottom)); border-top: 1px solid rgba(247, 241, 235, .2); background: var(--ink); color: var(--taupe); font-size: .75rem; line-height: 1.5; }
     .footer-row { display: flex; flex-direction: column; gap: .5rem; }
-    .footer-row p { hyphens: manual; }
 
     /* ---------- Анимации ---------- */
     @keyframes fade-up { from { opacity: 0; transform: translateY(1.5rem); } to { opacity: 1; transform: none; } }
@@ -169,6 +242,7 @@
     .hero-copy h1 { animation-delay: .2s; }
     .hero-copy .lead { animation-delay: .3s; }
     .hero-copy .cta { animation-delay: .4s; }
+    .hero-copy .hero-meta { animation-delay: .45s; }
     .hero-visual { animation: fade-in 1s .25s ease-out backwards; }
 
     .js .reveal { opacity: 0; transform: translateY(1.75rem); transition: opacity .75s ease, transform .75s ease; }
@@ -199,7 +273,7 @@
   <header class="topbar">
     <div class="wrap">
       <a class="brand" href="#" aria-label="Lady Dance — начало страницы">
-        <span class="brand-mark">A</span><span>Анастасия <i>|</i> Lady Dance</span>
+        <span class="brand-mark">А</span><span>Анастасия <i>|</i> Lady Dance</span>
       </a>
     </div>
   </header>
@@ -208,13 +282,14 @@
     <section class="hero" aria-labelledby="hero-title">
       <div class="wrap">
         <div class="hero-copy">
-          <div class="eyebrow">Группа с нуля</div>
+          <div class="eyebrow">Группа с нуля для девушек</div>
           <h1 id="hero-title">LADY<br>DANCE</h1>
-          <p class="lead">Направление про женственность, плавность и внутреннюю уверенность. Открыв для себя этот стиль вы не останетесь равнодушными, стоит только попробовать!</p>
+          <p class="lead">Пластика, женственность и уверенность в теле — даже если ты никогда не&nbsp;танцевала!</p>
           <a class="cta" href="#booking">Записаться на занятие <span aria-hidden="true">&nbsp;→</span></a>
+          <p class="hero-meta">Ср и Пт · 21:00 · Студия «Твой мир»</p>
         </div>
         <div class="hero-visual">
-          <img class="model-photo" src="model.png" width="1261" height="1247" alt="Модель в танцевальной позе" fetchpriority="high">
+          <img class="model-photo" src="img/hero.webp" width="1000" height="989" alt="Анастасия в танцевальной позе на стуле" fetchpriority="high">
         </div>
       </div>
     </section>
@@ -222,65 +297,108 @@
     <section class="about" aria-labelledby="about-title">
       <div class="wrap">
         <div class="section-heading reveal">
-          <div><div class="section-kicker">Почему Lady Dance</div><h2 id="about-title">Про тебя</h2></div>
+          <div><div class="section-kicker">Почему Lady Dance</div><h2 id="about-title">Потому что это дает&nbsp;тебе</h2></div>
           <p class="serif-note">Место, где можно расслабиться и кайфовать от своего отражения.</p>
         </div>
         <div class="benefits reveal-stagger">
-          <article class="benefit"><span class="benefit-num">01</span><h3>Женственность</h3><p>Не книжная, а твоя настоящая: без пошлости, через плавные линии, игривый взгляд и внутреннюю силу.</p></article>
-          <article class="benefit"><span class="benefit-num">02</span><h3>Пластика</h3><p>Убираем «деревянность» в теле. Ты научишься плавно управлять корпусом и бёдрами так, будто танцевала всю жизнь.</p></article>
+          <article class="benefit"><span class="benefit-num">01</span><h3>Женственность</h3><p>Не глянцевая, а твоя собственная: без пошлости, через плавные линии, игривый взгляд и внутреннюю силу.</p></article>
+          <article class="benefit"><span class="benefit-num">02</span><h3>Пластика</h3><p>Убираем «деревянность» в теле. Ты научишься плавно управлять корпусом и бедрами так, будто танцевала всю жизнь.</p></article>
           <article class="benefit"><span class="benefit-num">03</span><h3>Осанка</h3><p>Уверенность начинается со спины. Разгружаем шею и поясницу, расправляем плечи и возвращаем легкую походку.</p></article>
-          <article class="benefit"><span class="benefit-num">04</span><h3>Перезагрузка</h3><p>Выплеснуть накопившийся стресс недели под крутые треки и выйти из зала не выжатой, а наполненной и заряженной.</p></article>
+          <article class="benefit"><span class="benefit-num">04</span><h3>Перезагрузка</h3><p>Выплескиваешь стресс недели под крутые треки и выходишь из зала не выжатой, а наполненной и заряженной.</p></article>
         </div>
+      </div>
+    </section>
+
+    <section class="coach" id="coach" aria-labelledby="coach-title">
+      <div class="wrap">
+        <div class="coach-heading reveal">
+          <div class="section-kicker">Твой тренер</div>
+          <h2 id="coach-title">Анастасия</h2>
+          <p class="serif-note"><i class="sparkle" aria-hidden="true">✦</i>Веду Lady Dance в студии «Твой&nbsp;мир»</p>
+        </div>
+
+        <figure class="coach-photo reveal">
+          <img src="img/coach.webp" width="900" height="1125" alt="Анастасия с дипломами фестиваля «Феста»" loading="lazy" decoding="async">
+          <div class="coach-badge" aria-hidden="true"><b>15</b><span>лет<br>в танцах</span></div>
+          <div class="coach-tag">Призер конкурсов</div>
+        </figure>
+
+        <blockquote class="coach-quote reveal">Танцую сама — и учу танцевать так, чтобы от тебя невозможно было оторвать взгляд.</blockquote>
+
+        <ul class="coach-facts reveal-stagger">
+          <li class="coach-fact">
+            <div><span class="coach-big">Подход к каждой</span><h3>с нуля и после перерыва</h3><p>Большой танцевальный опыт помогает мне подстроить темп под группу и объяснить движение по-другому, если сразу не получается.</p></div>
+          </li>
+          <li class="coach-fact">
+            <div><span class="coach-big">Большая сцена</span><h3>конкурсы и фестивали</h3><p>Я участница и призер всероссийских и международных конкурсов, выступала в Санкт-Петербурге, Казани и других городах России.</p></div>
+          </li>
+          <li class="coach-fact">
+            <div><span class="coach-big">Свобода в теле</span><h3>без зажимов и скованности</h3><p>Помогаю раскрепоститься, развить мягкость движений, растяжку и уверенную подачу.</p></div>
+          </li>
+        </ul>
+
+        <div class="gallery-head reveal">
+          <span class="gallery-title">На сцене</span>
+          <span class="gallery-hint" aria-hidden="true">листай →</span>
+        </div>
+      </div>
+
+      <div class="gallery reveal" role="region" aria-label="Фото Анастасии с выступлений" tabindex="0">
+        <figure><img src="img/stage-1.webp" width="720" height="900" alt="Анастасия в прогибе на фоне звездного неба" loading="lazy" decoding="async"></figure>
+        <figure><img src="img/stage-2.webp" width="720" height="900" alt="Анастасия в красном жакете в групповой постановке" loading="lazy" decoding="async"></figure>
+        <figure><img src="img/stage-3.webp" width="720" height="900" alt="Анастасия в партере на сцене" loading="lazy" decoding="async"></figure>
+        <figure><img src="img/stage-4.webp" width="720" height="900" alt="Анастасия в белом платье в постановке" loading="lazy" decoding="async"></figure>
+      </div>
+
+      <div class="wrap">
+        <p class="coach-outro reveal"><strong>Праздник, драйв и поддержка</strong> — такую атмосферу я привезла с фестивалей и переношу в свой зал. Здесь каждая чувствует себя частью команды.</p>
       </div>
     </section>
 
     <section class="fears" aria-labelledby="fears-title">
       <div class="wrap">
         <div class="fears-heading reveal">
-          <div class="section-kicker">БЕЗОПАСНОЕ ПРОСТРАНСТВО</div>
-          <h2 id="fears-title">СТРАХИ, КОТОРЫХ НЕТ</h2>
+          <div class="section-kicker">Безопасное пространство</div>
+          <h2 id="fears-title">Страхи, которых нет</h2>
           <p class="fears-subtitle">«А вдруг я буду выглядеть неловко?» — спойлер: не будешь.</p>
         </div>
         <div class="fear-cards reveal-stagger">
           <article class="fear-card">
             <h3 class="fear-heading">
               <button class="fear-trigger" type="button" aria-expanded="false" aria-controls="fear-answer-1">
-                <span class="fear-number">01</span>
                 <span class="fear-title">«Боюсь быть деревянной»</span>
                 <span class="fear-plus" aria-hidden="true"></span>
               </button>
             </h3>
             <div class="fear-answer" id="fear-answer-1">
               <div class="fear-answer-inner">
-                <p>Никто не приходит в группу с врожденной кошачьей пластикой. Тело в начале пути может быть зажатым из-за работы и стресса — и это нормально. Моя задача как тренера — шаг за шагом передать тебе свой опыт, научить мягкости, игривости и эмоциям. Пластика не нужна на входе, мы развиваем её здесь.</p>
+                <p>Никто не приходит в группу с врожденной кошачьей пластикой. Тело в начале пути может быть зажатым из-за работы и стресса — и это нормально. Моя задача как тренера — шаг за шагом передать тебе свой опыт, научить двигаться мягко, игриво и с эмоцией. Пластика не нужна на входе — мы развиваем ее здесь.</p>
               </div>
             </div>
           </article>
           <article class="fear-card">
             <h3 class="fear-heading">
               <button class="fear-trigger" type="button" aria-expanded="false" aria-controls="fear-answer-2">
-                <span class="fear-number">02</span>
                 <span class="fear-title">«Боюсь, что на меня будут смотреть»</span>
                 <span class="fear-plus" aria-hidden="true"></span>
               </button>
             </h3>
             <div class="fear-answer" id="fear-answer-2">
               <div class="fear-answer-inner">
-                <p>В зале каждая девушка смотрит только в одно место — на себя в зеркало, чтобы поймать свое ощущение кайфа. У нас нет оценивающих взглядов, оценок и экзаменов. Здесь можно ошибаться, сбиваться с ритма и смеяться над этим.</p>
+                <p>В зале каждая девушка смотрит только в одно место — на себя в зеркало: все заняты своим движением. Здесь никто никого не оценивает и не сравнивает. Можно ошибаться, сбиваться с ритма и смеяться над этим.</p>
               </div>
             </div>
           </article>
           <article class="fear-card">
             <h3 class="fear-heading">
               <button class="fear-trigger" type="button" aria-expanded="false" aria-controls="fear-answer-3">
-                <span class="fear-number">03</span>
                 <span class="fear-title">«Боюсь прийти в чужой коллектив»</span>
                 <span class="fear-plus" aria-hidden="true"></span>
               </button>
             </h3>
             <div class="fear-answer" id="fear-answer-3">
               <div class="fear-answer-inner">
-                <p>Наша группа — это не про соперничество, это теплое женское комьюнити. Каждая из девушек когда-то зашла в этот зал впервые и так же переживала. Новеньких мы встречаем с искренним теплом, помогаем и поддерживаем. Ты сразу почувствуешь себя своей.</p>
+                <p>Наша группа — это не про соперничество, это теплое женское комьюнити. Каждая из девушек когда-то зашла в этот зал впервые и так же переживала. Новеньких мы встречаем с радостью, помогаем и поддерживаем. Ты сразу почувствуешь себя своей.</p>
               </div>
             </div>
           </article>
@@ -288,15 +406,16 @@
       </div>
     </section>
 
-    <section class="facts-section" aria-label="Основная информация">
+
+    <section class="facts-section" aria-label="Когда и где">
       <div class="wrap">
-        <div class="facts reveal-stagger">
+        <div class="facts reveal">
           <article class="fact">
-            <div class="fact-label">Расписание</div>
+            <div class="fact-label">Когда</div>
             <p class="fact-value">СР / ПТ<br>21:00–22:00</p>
           </article>
           <article class="fact">
-            <div class="fact-label">Локация</div>
+            <div class="fact-label">Где</div>
             <p class="fact-value">Студия танца<br>«Твой мир»</p>
             <a class="map-link" href="https://yandex.ru/maps/-/CXuEZRYa" target="_blank" rel="noopener">Открыть на карте&nbsp;↗</a>
           </article>
@@ -308,19 +427,26 @@
       <div class="wrap">
         <div class="booking reveal">
           <div class="booking-copy">
-            <div class="section-kicker">Первый шаг</div>
-            <h2 id="booking-title">Попробуем?</h2>
+            <div class="booking-head">
+              <div class="booking-logo" aria-hidden="true"><b>LD</b><i>✦</i></div>
+              <div>
+                <div class="section-kicker">Первый шаг</div>
+                <h2 id="booking-title">Попробуем?</h2>
+              </div>
+            </div>
             <p>Первое занятие ни к чему не обязывает — это просто повод примерить этот танец на себя, познакомиться со мной и почувствовать атмосферу зала. Напиши мне: я расскажу, какую удобную одежду взять с собой, и отвечу на любые вопросы.</p>
           </div>
-          <div class="quick-links" aria-label="Быстрая связь">
-            <a class="quick-link" href="https://max.ru/u/f9LHodD0cOJjfSxrtKLb_PzpsMe2mcc-hUSdlzGnfBJ29O9et6px-gEfLcQ" target="_blank" rel="noopener"><span>Написать в MAX</span></a>
+          <div class="quick-links" role="group" aria-label="Быстрая связь">
             <a class="quick-link" href="https://t.me/an_boldy" target="_blank" rel="noopener"><span>Написать в Telegram</span></a>
+            <a class="quick-link" href="https://max.ru/u/f9LHodD0cOJjfSxrtKLb_PzpsMe2mcc-hUSdlzGnfBJ29O9et6px-gEfLcQ" target="_blank" rel="noopener"><span>Написать в MAX</span></a>
             <a class="quick-link" href="tel:+79635726344"><span>Позвонить +7 (963) 572-63-44</span></a>
           </div>
         </div>
       </div>
     </section>
   </main>
+
+  <a class="sticky-cta" href="#booking">Записаться на занятие <span aria-hidden="true">→</span></a>
 
   <footer>
     <div class="wrap footer-row">
@@ -354,6 +480,26 @@
         items.forEach(function (item) { io.observe(item); });
       } else {
         items.forEach(function (item) { item.classList.add("is-visible"); });
+      }
+
+      // Плавающая кнопка: видна после первого экрана, прячется у блока записи
+      var sticky = document.querySelector(".sticky-cta");
+      var heroCta = document.querySelector(".hero .cta");
+      var booking = document.getElementById("booking");
+      if (sticky && heroCta && booking) {
+        var ticking = false;
+        var update = function () {
+          ticking = false;
+          var passedHero = heroCta.getBoundingClientRect().bottom < 0;
+          var nearBooking = booking.getBoundingClientRect().top < window.innerHeight * 0.9;
+          sticky.classList.toggle("is-shown", passedHero && !nearBooking);
+        };
+        var onScroll = function () {
+          if (!ticking) { ticking = true; window.requestAnimationFrame(update); }
+        };
+        window.addEventListener("scroll", onScroll, { passive: true });
+        window.addEventListener("resize", onScroll);
+        update();
       }
 
       // Раскрывающиеся карточки «Страхи, которых нет»
